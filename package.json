@@ -1,0 +1,19 @@
+{
+  "name": "rpm-change-electron",
+  "version": "1.0.0",
+  "description": "For me",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnn1590/rpm-change-electron.git"
+  },
+  "author": "NNN1590",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/nnn1590/rpm-change-electron/issues"
+  },
+  "homepage": "https://github.com/nnn1590/rpm-change-electron#readme"
+}
