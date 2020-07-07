@@ -19,22 +19,12 @@
 	<head>
 		<meta charset="utf-8">
 		<link rel="license" href="http://www.gnu.org/licenses/gpl.html">
-		<title>rpm Changer Electron</title>
+		<title>brightness Changer Electron</title>
 	</head>
 	<body>
-		pwm1:
-		<input type="checkbox" id="check1">Auto
-		<input type="range" value="1" min="0" max="256" id="range1">
-		<input type="number" value="1" min="0" max="256" id="num1">
-		<br>pwm2:
-		<input type="checkbox" id="check2">Auto
-		<input type="range" value="1" min="0" max="256" id="range2">
-		<input type="number" value="1" min="0" max="256" id="num2">
-		<hr>
-		Current values (Mode, Value, rpm):<br>
-		<div id="current_vals">pwm1: (MODE), (VALUE), (RPM)rpm<br>
-		pwm2: (MODE), (VALUE), (RPM)rpm</div>
-		Mode: No control(full speed) = 0, Manual =1, Auto = 2
+		HDMI-1:
+		<input type="range" value="100" min="10" max="100" id="range1">
+		<input type="number" value="100" min="10" max="100" id="num1">
 		<hr>
 		<b>NOTE: </b>Please run this app with root privileges! Example: <code>sudo electron --no-sandbox .</code>
 	</body>

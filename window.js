@@ -36,86 +36,16 @@ function execute(command, callback) {
 	});
 };
 
-var currentVals = document.getElementById('current_vals');
+// Control brightness(actually gamma?)
 
-function updateStatus() {
-	execute(`echo -n "pwm1: "
-echo -n $(cat /sys/class/hwmon/hwmon2/device/pwm1_enable)
-echo -n ", "
-echo -n $(cat /sys/class/hwmon/hwmon2/device/pwm1)
-echo -n ", "
-echo -n $(cat /sys/class/hwmon/hwmon2/device/fan1_input)
-echo -n "rpm"
-echo "<br>"
-echo -n "		pwm2: "
-echo -n $(cat /sys/class/hwmon/hwmon2/device/pwm2_enable)
-echo -n ", "
-echo -n $(cat /sys/class/hwmon/hwmon2/device/pwm2)
-echo -n ", "
-echo -n $(cat /sys/class/hwmon/hwmon2/device/fan2_input)
-echo -n "rpm"`, output => {
-		currentVals.innerHTML = output;
-	});
-}
-
-function initStatus() {
-	execute('echo -n $(cat /sys/class/hwmon/hwmon2/device/pwm1_enable)', output => {
-		if (output == 2) {
-			check1.checked = true;
-		}
-	});
-	execute('echo -n $(cat /sys/class/hwmon/hwmon2/device/pwm1)', output => {
-		range1.value = output;
-		field1.value = output;
-	});
-	execute('echo -n $(cat /sys/class/hwmon/hwmon2/device/pwm2_enable)', output => {
-		if (output == 2) {
-			check2.checked = true;
-		}
-	});
-	execute('echo -n $(cat /sys/class/hwmon/hwmon2/device/pwm2)', output => {
-		range2.value = output;
-		field2.value = output;
-	});
-	
-}
-
-
-setInterval(updateStatus, 1000);
-
-// Control fan
-
-var check1 = document.getElementById('check1');
 var range1 = document.getElementById('range1');
 var field1 = document.getElementById('num1');
 
-check1.addEventListener('input', function (e) {
-	execute('echo ' + (e.target.checked + 1) + ' | tee /sys/class/hwmon/hwmon2/device/pwm1_enable', output => {});
-});
 range1.addEventListener('input', function (e) {
 	field1.value = e.target.value;
-	execute('echo ' + e.target.value + ' | tee /sys/class/hwmon/hwmon2/device/pwm1', output => {});
+	execute('xrandr --output HDMI-1 --brightness ' + e.target.value/100, output => {});
 });
 field1.addEventListener('input', function (e) {
 	range1.value = e.target.value;
-	execute('echo ' + e.target.value + ' | tee /sys/class/hwmon/hwmon2/device/pwm1', output => {});
+	execute('xrandr --output HDMI-1 --brightness ' + e.target.value/100, output => {});
 });
-
-var check2 = document.getElementById('check2');
-var range2 = document.getElementById('range2');
-var field2 = document.getElementById('num2');
-
-check2.addEventListener('input', function (e) {
-	execute('echo ' + (e.target.checked + 1) + ' | tee /sys/class/hwmon/hwmon2/device/pwm2_enable', output => {});
-});
-range2.addEventListener('input', function (e) {
-	field2.value = e.target.value;
-	execute('echo ' + e.target.value + ' | tee /sys/class/hwmon/hwmon2/device/pwm2', output => {});
-});
-field2.addEventListener('input', function (e) {
-	range2.value = e.target.value;
-	execute('echo ' + e.target.value + ' | tee /sys/class/hwmon/hwmon2/device/pwm2', output => {});
-});
-
-updateStatus();
-initStatus();
