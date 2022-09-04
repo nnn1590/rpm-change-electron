@@ -1,2 +1,2 @@
 # rpm-change-electron
-For me
+過去に個人的に作ったクッソカオスなElectronアプリ
